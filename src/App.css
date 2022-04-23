@@ -1,0 +1,64 @@
+.App {
+    padding: 30px;
+    display: flex;
+    justify-content: center;
+}
+
+.App > div {
+
+    margin-right: 50px;
+}
+
+.Container {
+    display: flex;
+    flex-direction: column;
+    height: 150px;
+    width: 255px;
+    border: 2px solid black;
+    border-radius: 3%;
+
+}
+
+.Tablo {
+    margin: 5px;
+    display: flex;
+    height: 80px;
+    width: 240px;
+    border: 2px solid black;
+    align-items: center;
+    justify-content: center;
+    font-size: xx-large;
+    border-radius: 3%;
+}
+.TabloEnd {
+    margin: 5px;
+    display: flex;
+    height: 80px;
+    width: 240px;
+    border: 2px solid black;
+    align-items: center;
+    justify-content: center;
+    font-size: xx-large;
+    color: red;
+    border-radius: 3%;
+}
+
+.ButtonsCSS {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    height: 50px;
+    width: 240px;
+    margin: 5px;
+    border-radius: 3%;
+
+}
+
+.Buttons {
+    height: 40px;
+    width: 70px;
+    border: 2px solid black;
+    text-align: center;
+    border-radius: 10%;
+}
+
