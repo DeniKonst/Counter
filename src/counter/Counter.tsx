@@ -1,47 +1,47 @@
 import React from 'react';
 import {Buttons} from "./Buttons";
 import {Tablo} from './Tablo';
+import {useDispatch, useSelector} from "react-redux";
+import {AppStateType} from "../redux/store";
+import {changeTabloAC, incCounterValueAC, resetCounterValueAC} from "../redux/counterReducer";
 
-type PropsType = {
-    point: number | null
-    maxValue: number
-    startValue: number
-    increment: (num: number) => void
-    reset: () => void
-    changeTablo: ()=> void
-    inputStartValue: number
-    inputMaxValue: number
-}
+export const Counter = () => {
 
-export const Counter = (props: PropsType) => {
-    let count = 1
+    const currentCounterValue = useSelector<AppStateType, number>(state => state.counter.counterValue)
+    const currentSetStartValue = useSelector<AppStateType, number>(state => state.counter.setStartValue)
+    const currentSetMaxValue = useSelector<AppStateType, number>(state => state.counter.setMaxValue)
+
+    const dispatch = useDispatch()
+
     const incrementHandler = () => {
-        props.increment(count)
+        if (currentCounterValue < currentSetMaxValue)
+            dispatch(incCounterValueAC())
     }
-
     const resetHandler = () => {
-        props.reset()
+        dispatch(resetCounterValueAC(currentSetStartValue))
     }
-
     const setHandler = () => {
-        props.changeTablo()
+        dispatch(changeTabloAC())
     }
 
-    let error=null;
-    if (props.inputMaxValue <= props.inputStartValue || props.inputStartValue < 0) {
-        error = 'invalid settings values'
-    }
+    let error = null;
+    if (currentSetMaxValue && currentSetStartValue)
+        if (currentSetMaxValue <= currentSetStartValue || currentSetStartValue < 0) {
+            error = 'invalid settings values'
+        }
 
     return (
 
         <div className={'Container'}>
-            <Tablo point={props.point} maxValue={props.maxValue} error={error}/>
+            <Tablo point={currentCounterValue} maxValue={currentSetMaxValue} error={error}/>
+
             <div className={'ButtonsCSS'}>
                 <Buttons title={'inc'} callBack={incrementHandler}
-                         disabled={props.point === props.maxValue || props.inputMaxValue <= props.inputStartValue || props.inputStartValue < 0}/>
+                         disabled={currentCounterValue === currentSetMaxValue}/>
+
                 <Buttons title={'reset'} callBack={resetHandler}
-                         disabled={props.point === props.startValue || props.inputMaxValue <= props.inputStartValue || props.inputStartValue < 0}/>
-                <Buttons title={'set'} callBack={setHandler} disabled={props.inputStartValue < 0}/>
+                         disabled={currentCounterValue === currentSetStartValue}/>
+                <Buttons title={'set'} callBack={setHandler} disabled={currentSetStartValue < 0}/>
             </div>
 
         </div>)
